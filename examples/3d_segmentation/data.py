@@ -12,7 +12,7 @@ import sparseconvnet as scn
 
 if not os.path.exists('train_val/'):
     print('Downloading data ...')
-    os.system('bash download_and_split_data.sh')
+    os.system('bash download_data.sh')
 
 categories=["02691156", "02773838", "02954340", "02958343",
        "03001627", "03261776", "03467517", "03624134",
