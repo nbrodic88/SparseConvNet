@@ -1,5 +1,5 @@
 wget https://www.dropbox.com/s/v8cqx1tx5p9gjy2/train_val.zip?dl=0 -O train_val.zip
-wget https://www.dropbox.com/s/9to7yq1nmp5q4mf/test.zip?dl=0 -O test.zip
+wget https://www.dropbox.com/s/xnhdbs9timpco25/test.zip?dl=0 -O test.zip
 unzip train_val.zip
 unzip test.zip
 #for x in train_val test; do 
