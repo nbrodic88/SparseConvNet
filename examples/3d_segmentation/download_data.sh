@@ -1,9 +1,7 @@
-wget https://www.dropbox.com/s/9to7yq1nmp5q4mf/Train-Track4.zip?dl=0 -O Train-Track4.zip
-wget https://www.dropbox.com/s/8lyklqxiv3uijg0/Train-Track4-Truth.zip?dl=0 -O Train-Track4-Truth.zip
-wget https://www.dropbox.com/s/kja8sc464kzxsoy/Test-Track4.zip?dl=0 -O Test-Track4.zip
-unzip Train-Track4.zip
-unzip Train-Track4-Truth.zip
-unzip Test-Track4.zip
+wget https://www.dropbox.com/s/9to7yq1nmp5q4mf/train-val.zip?dl=0 -O train-val.zip
+wget https://www.dropbox.com/s/9to7yq1nmp5q4mf/test.zip?dl=0 -O test.zip
+unzip train-val.zip
+unzip test.zip
 #for x in train_val test; do 
 #for y in 02691156 02773838 02954340 02958343 03001627 03261776 03467517 03624134 03636649 03642806 03790512 03797390 03948459 04099429 04225987 04379243; do 
 #        mkdir -p $x/$y
