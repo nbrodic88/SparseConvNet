@@ -12,17 +12,11 @@ import sparseconvnet as scn
 
 if not os.path.exists('train_val/'):
     print('Downloading data ...')
-    os.system('bash download_and_split_data.sh')
+    os.system('bash download_data.sh')
 
-categories=["02691156", "02773838", "02954340", "02958343",
-       "03001627", "03261776", "03467517", "03624134",
-       "03636649", "03642806", "03790512", "03797390",
-       "03948459", "04099429", "04225987", "04379243"]
-classes=['Airplane', 'Bag',      'Cap',        'Car',
-         'Chair',    'Earphone', 'Guitar',     'Knife',
-         'Lamp',     'Laptop',   'Motorbike',  'Mug',
-         'Pistol',   'Rocket',   'Skateboard', 'Table']
-nClasses=[4, 2, 2, 4, 4, 3, 3, 2, 4, 2, 6, 2, 3, 3, 3, 3]
+categories=["000001"]
+classes=['Points']
+nClasses=[6]
 classOffsets=np.cumsum([0]+nClasses)
 
 def init(c,resolution=50,sz=50*8+8,batchSize=16):
@@ -31,7 +25,7 @@ def init(c,resolution=50,sz=50*8+8,batchSize=16):
     globals()['batchSize']=batchSize
     globals()['spatialSize']=torch.LongTensor([sz]*3)
     if categ==-1:
-        print('All categories: 50 classes')
+        print('All categories: 6 classes')
         globals()['nClassesTotal']=int(classOffsets[-1])
     else:
         print('categ ',categ,classes[categ])
@@ -46,7 +40,7 @@ def load(xF, c, classOffset, nc):
 def train():
     d=[]
     if categ==-1:
-        for c in range(16):
+        for c in range(1):
             for x in torch.utils.data.DataLoader(
                 glob.glob('train_val/'+categories[c]+'/*.pts.train'),
                 collate_fn=lambda x: load(x, c, classOffsets[c],nClasses[c]),
@@ -102,7 +96,7 @@ def train():
 def valid():
     d=[]
     if categ==-1:
-        for c in range(16):
+        for c in range(1):
             for x in torch.utils.data.DataLoader(
                 glob.glob('train_val/'+categories[c]+'/*.pts.valid'),
                 collate_fn=lambda x: load(x, c, classOffsets[c],nClasses[c]),
