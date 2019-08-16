@@ -14,15 +14,11 @@ if not os.path.exists('train_val/'):
     print('Downloading data ...')
     os.system('bash download_data.sh')
 
-categories=["02691156", "02773838", "02954340", "02958343",
-       "03001627", "03261776", "03467517", "03624134",
-       "03636649", "03642806", "03790512", "03797390",
-       "03948459", "04099429", "04225987", "04379243"]
-classes=['Airplane', 'Bag',      'Cap',        'Car',
-         'Chair',    'Earphone', 'Guitar',     'Knife',
-         'Lamp',     'Laptop',   'Motorbike',  'Mug',
-         'Pistol',   'Rocket',   'Skateboard', 'Table']
-nClasses=[4, 2, 2, 4, 4, 3, 3, 2, 4, 2, 6, 2, 3, 3, 3, 3]
+categories=["000001", "000002", "000003", "000004",
+       "000005", "000006"]
+classes=['Bridge', 'Building',      'Ground',        'Trees',
+         'Unlabeled',    'Water']
+nClasses=[6, 6, 6, 6, 6, 6]
 classOffsets=np.cumsum([0]+nClasses)
 
 def init(c,resolution=50,sz=50*8+8,batchSize=16):
@@ -40,7 +36,7 @@ def init(c,resolution=50,sz=50*8+8,batchSize=16):
 def load(xF, c, classOffset, nc):
     xl=np.loadtxt(xF[0])
     xl/= ((xl**2).sum(1).max()**0.5)
-    y = np.loadtxt(xF[0][:-9]+'seg').astype('int64')+classOffset-1
+    y = np.loadtxt(xF[0][:-9]+'txt').astype('int64')+classOffset-1
     return (xF[0], xl, y, c, classOffset, nc, np.random.randint(1e6))
 
 def train():
@@ -48,13 +44,13 @@ def train():
     if categ==-1:
         for c in range(16):
             for x in torch.utils.data.DataLoader(
-                glob.glob('train_val/'+categories[c]+'/*.pts.train'),
+                glob.glob('train_val/'+categories[c]+'/*.txt.train'),
                 collate_fn=lambda x: load(x, c, classOffsets[c],nClasses[c]),
                 num_workers=12):
                 d.append(x)
     else:
         for x in torch.utils.data.DataLoader(
-            glob.glob('train_val/'+categories[categ]+'/*.pts.train'),
+            glob.glob('train_val/'+categories[categ]+'/*.txt.train'),
             collate_fn=lambda x: load(x, categ, 0, nClasses[categ]),
             num_workers=12):
             d.append(x)
@@ -104,13 +100,13 @@ def valid():
     if categ==-1:
         for c in range(16):
             for x in torch.utils.data.DataLoader(
-                glob.glob('train_val/'+categories[c]+'/*.pts.valid'),
+                glob.glob('train_val/'+categories[c]+'/*.txt.valid'),
                 collate_fn=lambda x: load(x, c, classOffsets[c],nClasses[c]),
                 num_workers=12):
                 d.append(x)
     else:
         for x in torch.utils.data.DataLoader(
-            glob.glob('train_val/'+categories[categ]+'/*.pts.valid'),
+            glob.glob('train_val/'+categories[categ]+'/*.txt.valid'),
             collate_fn=lambda x: load(x, categ, 0, nClasses[categ]),
             num_workers=12):
             d.append(x)
