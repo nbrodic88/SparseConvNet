@@ -1,6 +1,6 @@
-wget https://www.dropbox.com/s/9to7yq1nmp5q4mf/train-val.zip?dl=0 -O train-val.zip
+wget https://www.dropbox.com/s/v8cqx1tx5p9gjy2/train_val.zip?dl=0 -O train_val.zip
 wget https://www.dropbox.com/s/9to7yq1nmp5q4mf/test.zip?dl=0 -O test.zip
-unzip train-val.zip
+unzip train_val.zip
 unzip test.zip
 #for x in train_val test; do 
 #for y in 02691156 02773838 02954340 02958343 03001627 03261776 03467517 03624134 03636649 03642806 03790512 03797390 03948459 04099429 04225987 04379243; do 
