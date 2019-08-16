@@ -27,7 +27,7 @@ def init(c,resolution=50,sz=50*8+8,batchSize=16):
     globals()['batchSize']=batchSize
     globals()['spatialSize']=torch.LongTensor([sz]*3)
     if categ==-1:
-        print('All categories: 50 classes')
+        print('Total 6 classes')
         globals()['nClassesTotal']=int(classOffsets[-1])
     else:
         print('categ ',categ,classes[categ])
@@ -42,7 +42,7 @@ def load(xF, c, classOffset, nc):
 def train():
     d=[]
     if categ==-1:
-        for c in range(16):
+        for c in range(6):
             for x in torch.utils.data.DataLoader(
                 glob.glob('train_val/'+categories[c]+'/*.txt.train'),
                 collate_fn=lambda x: load(x, c, classOffsets[c],nClasses[c]),
@@ -98,7 +98,7 @@ def train():
 def valid():
     d=[]
     if categ==-1:
-        for c in range(16):
+        for c in range(6):
             for x in torch.utils.data.DataLoader(
                 glob.glob('train_val/'+categories[c]+'/*.txt.valid'),
                 collate_fn=lambda x: load(x, c, classOffsets[c],nClasses[c]),
