@@ -12,11 +12,13 @@ import sparseconvnet as scn
 
 if not os.path.exists('train_val/'):
     print('Downloading data ...')
-    os.system('bash download_data.sh')
+    os.system('bash download_and_split_data.sh')
 
-categories=["000001"]
-classes=['Points']
-nClasses=[6]
+categories=["000001", "000002", "000003", "000004",
+       "000005", "000006"]
+classes=['Ground', 'Trees',      'Building',        'Water',
+         'Bridge',    'Unlabeled']
+nClasses=[6, 6, 6, 6, 6, 6]
 classOffsets=np.cumsum([0]+nClasses)
 
 def init(c,resolution=50,sz=50*8+8,batchSize=16):
@@ -40,7 +42,7 @@ def load(xF, c, classOffset, nc):
 def train():
     d=[]
     if categ==-1:
-        for c in range(1):
+        for c in range(6):
             for x in torch.utils.data.DataLoader(
                 glob.glob('train_val/'+categories[c]+'/*.pts.train'),
                 collate_fn=lambda x: load(x, c, classOffsets[c],nClasses[c]),
@@ -96,7 +98,7 @@ def train():
 def valid():
     d=[]
     if categ==-1:
-        for c in range(1):
+        for c in range(6):
             for x in torch.utils.data.DataLoader(
                 glob.glob('train_val/'+categories[c]+'/*.pts.valid'),
                 collate_fn=lambda x: load(x, c, classOffsets[c],nClasses[c]),
